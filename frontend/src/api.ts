@@ -10,7 +10,7 @@ import * as mock from "./mock";
 export { ApiError };
 
 /** 백엔드가 준비되면 false로 바꾼다. */
-export const USE_MOCK = true;
+export const USE_MOCK = false;
 
 /** 환경변수가 우선, 없으면 localhost:8000 */
 export const API_BASE: string = import.meta.env.VITE_API_URL ?? "http://localhost:8000";

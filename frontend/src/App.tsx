@@ -3,6 +3,8 @@ import type { RoomState } from "./types";
 import { clearSession, loadSession } from "./session";
 import { USE_MOCK } from "./api";
 import { useRoomPolling } from "./useRoomPolling";
+import { useVoteProgress } from "./useVoteProgress";
+import type { VoteStage } from "./useVoteProgress";
 import MockPanel from "./components/MockPanel";
 import InlineMessage from "./components/InlineMessage";
 import Button from "./components/Button";
@@ -15,7 +17,7 @@ import Veto from "./screens/Veto";
 import Waiting from "./screens/Waiting";
 import Result from "./screens/Result";
 
-export type VoteStage = "cards" | "veto" | "submitting";
+export type { VoteStage };
 export type ScreenName = "home" | "notfound" | "result" | "waiting" | "cards" | "veto" | "lobby" | "loading";
 
 /** design.md "화면 전환 규칙" 1~8번. 위에서부터 처음 맞는 규칙을 쓴다. */
@@ -47,11 +49,13 @@ export default function App() {
     session?.room_code ?? null,
     session?.member_id ?? null,
   );
-  const [stage] = useState<VoteStage>("cards");
+  const vote = useVoteProgress();
+  const stage = vote.stage;
 
   const goHome = () => {
     clearSession();
     setSession(null);
+    vote.reset();
   };
 
   const screen = pickScreen({
@@ -70,7 +74,14 @@ export default function App() {
         {room && error && (
           <InlineMessage tone="info" message="연결이 불안정해요. 다시 시도하고 있어요." className="mb-2" />
         )}
-        {screen === "home" && <Home onEntered={() => setSession(loadSession())} />}
+        {screen === "home" && (
+          <Home
+            onEntered={() => {
+              vote.reset();
+              setSession(loadSession());
+            }}
+          />
+        )}
         {screen === "loading" && <Loading />}
         {screen === "notfound" && (
           <Card className="flex flex-col gap-4">
@@ -78,11 +89,37 @@ export default function App() {
             <Button onClick={goHome}>홈으로 가기</Button>
           </Card>
         )}
-        {screen === "lobby" && <Lobby />}
-        {screen === "cards" && <CardVote />}
-        {screen === "veto" && <Veto />}
-        {screen === "waiting" && <Waiting />}
-        {screen === "result" && <Result />}
+        {screen === "lobby" && room && session && (
+          <Lobby room={room} myMemberId={session.member_id} refresh={refresh} />
+        )}
+        {screen === "cards" && room && session && (
+          <CardVote
+            topic={room.topic}
+            candidates={room.candidates}
+            index={vote.index}
+            flipped={vote.flipped}
+            onToggle={vote.toggleFlip}
+            onChoose={(choice) =>
+              vote.choose(choice, session.room_code, session.member_id, room.candidates, refresh)
+            }
+          />
+        )}
+        {screen === "veto" && room && session && (
+          <Veto
+            topic={room.topic}
+            disliked={room.candidates.filter((c) => vote.choices[c.candidate_id] === "dislike")}
+            vetoId={vote.vetoId}
+            onSelect={vote.setVetoId}
+            onConfirm={(id) =>
+              void vote.confirmVeto(id, session.room_code, session.member_id, room.candidates, refresh)
+            }
+            error={vote.error}
+          />
+        )}
+        {screen === "waiting" && room && <Waiting room={room} submitting={stage === "submitting"} />}
+        {screen === "result" && room && (
+          <Result room={room} error={error} refresh={refresh} onNewGame={goHome} />
+        )}
       </div>
       {USE_MOCK && <MockPanel roomCode={session?.room_code ?? null} onChanged={refresh} />}
     </main>
