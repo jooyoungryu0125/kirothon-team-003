@@ -12,8 +12,9 @@ export { ApiError };
 /** 백엔드가 준비되면 false로 바꾼다. */
 export const USE_MOCK = false;
 
-/** 환경변수가 우선, 없으면 localhost:8000 */
-export const API_BASE: string = import.meta.env.VITE_API_URL ?? "http://localhost:8000";
+/** 환경변수가 우선, 없으면 지금 연 주소의 호스트(같은 와이파이의 다른 기기 포함) + :8000 */
+export const API_BASE: string =
+  import.meta.env.VITE_API_URL ?? `http://${window.location.hostname}:8000`;
 
 async function request<T>(method: "GET" | "POST", path: string, body?: unknown): Promise<T> {
   let res: Response;
