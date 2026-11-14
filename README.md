@@ -240,7 +240,7 @@ VITE_API_URL=http://localhost:8000
 
 ## 🎬 Demo
 
-[배포 또는 데모 영상 링크 추가 예정]
+(https://drive.google.com/file/d/1zFy9GtQywx1Q_9vCw6paAYrt7CY6BTMV/view?usp=sharing)
 
 ---
 
