@@ -1,0 +1,171 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. 프로젝트 뼈대와 공통 코드 만들기 (`frontend/` 폴더만 수정)": [
+      {
+        "executionId": "11915e6b-407f-4065-bc3a-c24fc15ffbea",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794641972195
+      },
+      {
+        "executionId": "11915e6b-407f-4065-bc3a-c24fc15ffbea",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794641984344
+      },
+      {
+        "executionId": "11915e6b-407f-4065-bc3a-c24fc15ffbea",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794642142562
+      },
+      {
+        "executionId": "4cd284f4-94f9-4e21-b037-15cf4d5c4a0e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794642635024
+      }
+    ],
+    "2. api.ts, 목 데이터, 폴링과 오류 처리 만들기 (`frontend/` 폴더만 수정)": [
+      {
+        "executionId": "11915e6b-407f-4065-bc3a-c24fc15ffbea",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794641973431
+      },
+      {
+        "executionId": "4cd284f4-94f9-4e21-b037-15cf4d5c4a0e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794642642018
+      },
+      {
+        "executionId": "0d4d8093-efea-4887-ac1e-8102eef65e4e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794642692761
+      },
+      {
+        "executionId": "0d4d8093-efea-4887-ac1e-8102eef65e4e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794642857540
+      }
+    ],
+    "3. 홈 화면과 방 만들기/참여 구현 (`frontend/` 폴더만 수정)": [
+      {
+        "executionId": "11915e6b-407f-4065-bc3a-c24fc15ffbea",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794641974227
+      },
+      {
+        "executionId": "0d4d8093-efea-4887-ac1e-8102eef65e4e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794642864691
+      },
+      {
+        "executionId": "0d4d8093-efea-4887-ac1e-8102eef65e4e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794642932571
+      }
+    ],
+    "4. 대기실, 후보 제출, 투표 시작 버튼 구현 (`frontend/` 폴더만 수정)": [
+      {
+        "executionId": "11915e6b-407f-4065-bc3a-c24fc15ffbea",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794641975426
+      },
+      {
+        "executionId": "0d4d8093-efea-4887-ac1e-8102eef65e4e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794642939648
+      },
+      {
+        "executionId": "0d4d8093-efea-4887-ac1e-8102eef65e4e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794643013978
+      }
+    ],
+    "5. 카드 투표, 거부권, 투표 제출, 기다리는 중 화면 구현 (`frontend/` 폴더만 수정)": [
+      {
+        "executionId": "11915e6b-407f-4065-bc3a-c24fc15ffbea",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794641976634
+      },
+      {
+        "executionId": "0d4d8093-efea-4887-ac1e-8102eef65e4e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794643021842
+      },
+      {
+        "executionId": "0d4d8093-efea-4887-ac1e-8102eef65e4e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794643137762
+      }
+    ],
+    "6. 결과 공개 화면 구현 (`frontend/` 폴더만 수정)": [
+      {
+        "executionId": "11915e6b-407f-4065-bc3a-c24fc15ffbea",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794641977437
+      },
+      {
+        "executionId": "0d4d8093-efea-4887-ac1e-8102eef65e4e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794643146160
+      },
+      {
+        "executionId": "0d4d8093-efea-4887-ac1e-8102eef65e4e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794643211525
+      }
+    ],
+    "8. 백엔드 뼈대 만들기 (`backend/` 폴더만 수정)": [
+      {
+        "executionId": "4cd284f4-94f9-4e21-b037-15cf4d5c4a0e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794642598186
+      }
+    ],
+    "9. 메모리 모델, 방 서비스, 방 코드 발급 만들기 (`backend/` 폴더만 수정)": [
+      {
+        "executionId": "4cd284f4-94f9-4e21-b037-15cf4d5c4a0e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794642599378
+      }
+    ],
+    "10. 방 만들기, 참여, 방 상태 조회 API 만들기 (`backend/` 폴더만 수정)": [
+      {
+        "executionId": "4cd284f4-94f9-4e21-b037-15cf4d5c4a0e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794642600167
+      }
+    ],
+    "11. 후보 제출 API 만들기 (`backend/` 폴더만 수정)": [
+      {
+        "executionId": "4cd284f4-94f9-4e21-b037-15cf4d5c4a0e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794642601359
+      }
+    ],
+    "12. 투표 시작 API와 중복 후보 통합 만들기 (`backend/` 폴더만 수정)": [
+      {
+        "executionId": "4cd284f4-94f9-4e21-b037-15cf4d5c4a0e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794642602175
+      }
+    ],
+    "13. 투표 제출 API와 결과 계산 만들기 (`backend/` 폴더만 수정)": [
+      {
+        "executionId": "4cd284f4-94f9-4e21-b037-15cf4d5c4a0e",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794642603137
+      }
+    ],
+    "7. [Should] 두구두구 결과 공개 연출과 아무고릴라 문구 (`frontend/` 폴더만 수정)": [
+      {
+        "executionId": "59de07fa-a38c-4aa1-ba3a-788621b2b937",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794643361245
+      },
+      {
+        "executionId": "59de07fa-a38c-4aa1-ba3a-788621b2b937",
+        "chatSessionId": "sess_5470fc84-01ea-4efd-b070-7b2df45654d8",
+        "timestamp": 1794643429516
+      }
+    ]
+  }
+}
