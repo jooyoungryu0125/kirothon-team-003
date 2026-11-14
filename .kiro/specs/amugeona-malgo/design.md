@@ -555,9 +555,9 @@ rooms: dict[str, Room] = {}   # key: 대문자 room_code
 frontend/src/
 ├── main.tsx
 ├── App.tsx                 # 폴링, 화면 전환 규칙
-├── index.css               # @import "tailwindcss"; + @theme 팔레트
-├── api.ts                  # USE_MOCK 스위치, API 호출 함수 6개
-├── mock.ts                 # 목 데이터 (JSON 예시 기반)
+├── index.css               # @import "tailwindcss"; + @theme 색상 토큰, Pretendard
+├── api.ts                  # USE_MOCK 스위치, API_BASE, API 호출 함수 6개 (USE_MOCK이 true이면 mock.ts 호출)
+├── mock.ts                 # 가짜 방: JSON 예시 데이터 + collecting → voting → done 단계 전환 로직 (동점 결과 포함)
 ├── types.ts                # API 타입 (snake_case 그대로)
 ├── session.ts              # sessionStorage 도우미
 ├── lib/text.ts             # 글자 수 자르기, 정규화 도우미
@@ -579,7 +579,7 @@ frontend/src/
 ```ts
 export const USE_MOCK = true; // 백엔드가 준비되면 false
 
-export const API_BASE = "http://localhost:8000";
+export const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:8000"; // 환경변수가 우선, 없으면 localhost:8000
 
 export function createRoom(req: CreateRoomReq): Promise<{ room_code: string; member_id: string }>;
 export function joinRoom(roomCode: string, req: { nickname: string }): Promise<{ member_id: string }>;
@@ -590,8 +590,9 @@ export function getRoom(roomCode: string, memberId?: string): Promise<RoomState>
 ```
 
 - 모든 호출은 같은 규칙으로 오류를 처리한다. HTTP 상태가 2xx가 아니면 응답 본문의 `detail`을 담은 `ApiError(status, detail)`을 던진다. 네트워크 오류는 `status = 0`으로 구분한다.
-- `USE_MOCK`이 true이면 네트워크를 쓰지 않고 `mock.ts`의 데이터를 돌려준다.
-- 목 데이터는 위 JSON 예시에서 가져온다. 방 상태 3종(collecting, voting, done)을 만들고, done에는 결과 두 가지(동점 없음, 동점 있음)를 모두 둔다. 화면 개발 중에 동점 결과를 바로 볼 수 있어야 한다.
+- `USE_MOCK` 스위치와 모든 API 함수는 `src/api.ts`에 둔다. `USE_MOCK`이 true이면 네트워크를 쓰지 않고 `src/mock.ts`의 가짜 방을 호출해 결과를 돌려준다. false이면 `API_BASE`로 요청한다.
+- 가짜 방(`mock.ts`)은 위 JSON 예시로 데이터를 만들고, 진짜 백엔드처럼 단계(collecting → voting → done)가 바뀌는 로직을 가진다. done에는 결과 두 가지(동점 없음, 동점 있음)를 모두 둔다. 화면 개발 중에 동점 결과를 바로 볼 수 있어야 한다.
+- `USE_MOCK`이 true일 때는 화면 구석에 "예시 데이터" 배지를 보여준다(ui-guide.md 8번).
 
 #### sessionStorage 도우미 (`session.ts`)
 
@@ -675,17 +676,24 @@ export function getRoom(roomCode: string, memberId?: string): Promise<RoomState>
 
 #### 디자인
 
-테라코타를 포인트 색으로 쓰고 작은 팔레트로 통일한다. Tailwind CSS v4의 `@theme`에 정의한다.
+아무고릴라 핑크(accent)를 포인트 색으로 쓴다. 색과 글꼴은 `.kiro/steering/ui-guide.md`의 토큰을 따르고, Tailwind CSS v4의 `@theme`에 같은 토큰 이름으로 등록한다. 코드에서는 hex 값 대신 토큰 이름으로 쓴다(`--color-accent` → `bg-accent`, `--color-text-primary` → `text-text-primary`, `--color-bg` → `bg-bg`처럼 `--color-<토큰>`이 `bg-/text-/border-<토큰>` 클래스가 된다). 글꼴은 Pretendard 하나만 쓴다.
 
 ```css
 @import "tailwindcss";
 
 @theme {
-  --color-terracotta-500: #c8553d;  /* 포인트: 주요 버튼, 강조 */
-  --color-terracotta-100: #f6dfd8;  /* 연한 배경, 선택 상태 */
-  --color-cream-50: #fbf6ef;        /* 페이지 배경 */
-  --color-ink-900: #2b2420;         /* 본문 글자 */
-  --color-ink-400: #8a7f77;         /* 보조 글자, placeholder */
+  --color-bg: #fff8fa;              /* 페이지 배경 */
+  --color-surface: #ffffff;         /* 카드, 입력창 배경 */
+  --color-border: #f0e4e8;          /* 카드 테두리, 구분선 */
+  --color-text-primary: #1a1a1a;    /* 제목, 본문 */
+  --color-text-secondary: #6b6b6b;  /* 설명, 보조 글자 */
+  --color-text-muted: #a3a3a3;      /* placeholder, 비활성 */
+  --color-danger: #d64545;          /* 싫어, 거부권, 오류 */
+  --color-success: #2f9e6b;         /* 제출 완료 표시 */
+  --color-pink-soft: #fce4ec;       /* 선택된 항목, 배지, 결과 카드 배경 */
+  --color-pink-light: #f6a9be;      /* 장식, 진행 바 (흰 글씨 금지) */
+  --color-accent: #c2456e;          /* 포인트: Primary 버튼, 강조 */
+  --font-sans: "Pretendard", sans-serif;
 }
 ```
 
@@ -918,7 +926,7 @@ interface ApiErrorBody { detail: string }
 
 - 프론트엔드: `USE_MOCK = true`로 화면 6개와 화면 전환, 동점 결과 공개 흐름을 직접 눌러 본다.
 - 백엔드: FastAPI의 `/docs`(Swagger UI)에서 6개 API를 호출해 상태 코드와 `detail` 문구를 확인한다.
-- 연동: `USE_MOCK = false`로 바꾸고 두 개의 브라우저 탭(또는 두 대의 기기)으로 방 만들기부터 결과까지 한 번 끝까지 진행한다.
+- 연동: `USE_MOCK = false`로 바꾸고(백엔드 주소는 `VITE_API_URL`, 없으면 `http://localhost:8000`) 두 개의 브라우저 탭(또는 두 대의 기기)으로 방 만들기부터 결과까지 한 번 끝까지 진행한다.
 
 나중에 자동화한다면 백엔드의 순수 함수(`normalize`, `merge_candidates`, `compute_result`)는 속성 기반 테스트에 적합하고(파이썬은 Hypothesis, 속성마다 100회 이상 실행, 주석에 "Feature: amugeona-malgo, Property N: ..." 형식으로 속성 번호를 적는다), 화면 렌더링은 스냅샷이나 예시 기반 테스트가 적합하다.
 

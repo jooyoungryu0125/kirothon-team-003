@@ -9,7 +9,7 @@ fileMatchPattern: "frontend/**"
 
 - 담당은 주영(프론트엔드)이다. 스택은 React + TypeScript + Vite + Tailwind CSS v4이다. 작업 폴더는 `frontend/`뿐이다. `backend/`는 절대 수정하지 않는다.
 - 기준 문서는 `.kiro/specs/amugeona-malgo/`의 requirements.md, design.md, tasks.md이다. 기획서 규칙, 숫자, API JSON 필드 이름은 바꾸지 않는다.
-- 화면 디자인은 `.kiro/steering/ui-guide.md`가 있으면 그 규칙을 따른다. 없으면 design.md의 팔레트를 따른다. 포인트 색은 테라코타이다.
+- 화면 디자인은 `.kiro/steering/ui-guide.md`가 있으면 그 규칙을 따른다. 없으면 design.md의 팔레트를 따른다. 포인트 색은 아무고릴라 핑크(accent)이다.
 - 서비스 이름은 "아무거나 말고"이다. 화면 문구는 친근한 존댓말 "~해요" 체로 쓴다.
 - AI 기능, 외부 API, 로그인, 채팅, 알림, DB는 쓰지 않는다. 기획서에 없는 기능은 만들지 않는다.
 
@@ -18,8 +18,8 @@ fileMatchPattern: "frontend/**"
 - `types.ts`의 필드 이름은 `design.md`의 API JSON과 글자 하나까지 같게 쓴다. snake_case를 그대로 쓰고, camelCase로 바꾸지 않는다.
 - 결과 JSON에는 `tied_candidates`가 있다. 동점이 없으면 빈 배열이고, `tie_break`는 `null`(동점 없음) 또는 `"random"`이다. `winner`, `winner_added_by`, `winner_appeals`, `ranking`은 기획서 그대로 쓴다.
 - 모든 API 호출은 `src/api.ts` 한 곳에서만 한다. 화면 컴포넌트에서 `fetch`를 직접 쓰지 않는다.
-- `USE_MOCK`이 true이면 `api.ts` 안의 가짜 방이 진짜 백엔드처럼 단계(collecting → voting → done)가 바뀌며 동작한다. false이면 `import.meta.env.VITE_API_URL`로 요청한다.
-- 가짜 방 데이터는 기획서의 JSON 예시로 만든다. 동점이 있는 결과 예시(`tie_break: "random"` + `tied_candidates`)도 하나 넣는다.
+- USE_MOCK 스위치와 모든 API 함수는 `src/api.ts`에 있고, 가짜 방(데이터와 collecting → voting → done 단계 전환 로직)은 `src/mock.ts`에 둔다. api.ts는 USE_MOCK이 true일 때 mock.ts를 호출한다. false이면 `import.meta.env.VITE_API_URL`로 요청한다. 값이 없으면 `http://localhost:8000`을 쓴다.
+- 가짜 방 데이터(`src/mock.ts`)는 기획서의 JSON 예시로 만든다. 동점이 있는 결과 예시(`tie_break: "random"` + `tied_candidates`)도 하나 넣는다.
 - `room_code`, `member_id`, `nickname`은 `sessionStorage`에만 저장한다. 탭마다 따로 저장되어야 탭 여러 개로 시연할 수 있다. `localStorage`는 쓰지 않는다.
 - 모든 요청에 `member_id`를 함께 보낸다. 방 상태의 `host_id`와 내 `member_id`가 같을 때만 방장 UI(투표 시작 버튼)를 보여준다.
 
