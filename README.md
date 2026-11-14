@@ -240,9 +240,11 @@ VITE_API_URL=http://localhost:8000
 
 ## 🎬 Demo
 
+데모 영상: [https://drive.google.com/file/d/1zFy9GtQywx1Q_9vCw6paAYrt7CY6BTMV/view?usp=sharing](https://drive.google.com/file/d/1zFy9GtQywx1Q_9vCw6paAYrt7CY6BTMV/view?usp=sharing)
+
 시연 주소: [http://172.20.10.14:5173](http://172.20.10.14:5173)
 
-> 시연용 노트북에서 프론트엔드(`npm run dev`)와 백엔드(`uvicorn main:app --reload --host 0.0.0.0 --port 8000`)를 켠 동안, 같은 핫스팟에 연결된 기기에서만 열려요. 핫스팟을 다시 켜면 주소가 바뀔 수 있어요.
+> 시연 주소는 시연용 노트북에서 프론트엔드(`npm run dev`)와 백엔드(`uvicorn main:app --reload --host 0.0.0.0 --port 8000`)를 켠 동안, 같은 핫스팟에 연결된 기기에서만 열려요. 핫스팟을 다시 켜면 주소가 바뀔 수 있어요.
 
 ---
 
